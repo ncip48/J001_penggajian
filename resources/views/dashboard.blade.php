@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $title)
+@section('title', 'Dashboard')
 
 @section('content')
     <div class="content-wrapper">
@@ -9,26 +9,17 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ $title }}</h1>
+                        <h1>Dashboard</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            @foreach ($breadcrumbs as $breadcrumb)
-                                {{-- check active by comparing the URL from $breadcrumb['url'] with the current URL --}}
-                                @php
-                                    $isActive = url()->current() == $breadcrumb['url'];
-                                @endphp
-
-                                <li class="breadcrumb-item {{ $isActive ? 'active' : '' }}">
-                                    @if ($isActive)
-                                        {{ $breadcrumb['title'] }}
-                                    @else
-                                        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
-                                    @endif
-                                </li>
-                            @endforeach
+                            <li class="breadcrumb-item ">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Dashboard
+                            </li>
                         </ol>
-
                     </div>
                 </div>
             </div><!-- /.container-fluid -->

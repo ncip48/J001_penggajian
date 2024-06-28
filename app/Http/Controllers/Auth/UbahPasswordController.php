@@ -9,27 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UbahPasswordController extends Controller
 {
-    public function __construct()
-    {
-        $this->url = url('/ubah-password');
-        $this->title = "Ubah Password";
-    }
-
     public function index()
     {
         //cek auth
         $this->checkAuth([0]);
 
-        $breadcrumbs = [
-            ["url" => "#", 'title' => "Home"],
-            ['url' => $this->url, 'title' => $this->title],
-        ];
-
         $user = User::find(auth()->user()->user_id);
 
-        return view('ubah_password')->with('title', $this->title)
-            ->with('url', $this->url)
-            ->with('breadcrumbs', $breadcrumbs)
+        return view('ubah_password')
             ->with('user', $user);
     }
 
