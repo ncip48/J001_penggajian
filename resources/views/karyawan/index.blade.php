@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $title)
+@section('title', 'Karyawan')
 
 @section('content')
     <div class="content-wrapper">
@@ -9,24 +9,19 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ $title }}</h1>
+                        <h1>Karyawan</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            @foreach ($breadcrumbs as $breadcrumb)
-                                {{-- check active by comparing the URL from $breadcrumb['url'] with the current URL --}}
-                                @php
-                                    $isActive = url()->current() == $breadcrumb['url'];
-                                @endphp
-
-                                <li class="breadcrumb-item {{ $isActive ? 'active' : '' }}">
-                                    @if ($isActive)
-                                        {{ $breadcrumb['title'] }}
-                                    @else
-                                        <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a>
-                                    @endif
-                                </li>
-                            @endforeach
+                            <li class="breadcrumb-item ">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Master Data</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Data Karyawan
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -50,10 +45,9 @@
                                         </h6>
                                     </div>
                                     <div class="card-tools">
-                                        <button type="button" data-block="body"
-                                            class="btn btn-sm btn-primary mt-1 ajax_modal"
-                                            data-url="{{ route('karyawan.create') }}"><i class="fas fa-plus"></i>
-                                            Add Karyawan</button>
+                                        <a class="btn btn-sm btn-primary mt-1" href="{{ route('karyawan.create') }}"><i
+                                                class="fas fa-plus"></i>
+                                            Add Karyawan</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,11 +86,20 @@
                                                     </td>
                                                     <td>{{ $karyawan->status_perkawinan }}</td>
                                                     <td>
-                                                        <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}"
-                                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="deleteKaryawan({{ $karyawan->id }})"><i
-                                                                class="fas fa-trash"></i></button>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}"
+                                                                class="btn btn-sm btn-warning"><i
+                                                                    class="fas fa-edit"></i></a>
+                                                            <form data-reload="true" id="main-form"
+                                                                action="{{ route('karyawan.destroy', $karyawan) }}"
+                                                                method="POST" class="ml-1 delete-form">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="confirm-text btn btn-sm btn-danger">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
