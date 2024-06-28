@@ -12,9 +12,14 @@ class AbsensiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $absensis = Absensi::all();
+        if ($request->bulan && $request->tahun) {
+            $absensis = Absensi::whereMonth('bulan', $request->bulan)
+                ->whereYear('bulan', $request->tahun)
+                ->get();
+        }
         return view('absensi.index')
             ->with('absensis', $absensis);
     }

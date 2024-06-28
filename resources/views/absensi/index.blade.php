@@ -44,12 +44,56 @@
                                     <div class="card-tools">
                                         <a class="btn btn-sm btn-primary mt-1" href="{{ route('absensi.create') }}"><i
                                                 class="fas fa-plus"></i>
-                                            Add Absensi</a>
+                                            Input Kehadiran</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                Filter data absensi karyawan
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <div class="col-12">
+                                        {{-- <li><a class="dropdown-item" href="#">Action</a></li> --}}
+                                        <form>
+                                            <div class="row mb-1">
+                                                {{-- @csrf --}}
+                                                <div class="form-group d-flex flex-row align-items-center">
+                                                    <label class="mb-0 mr-2" for="">Bulan</label>
+                                                    <select class="form-control month-filter" name="bulan">
+                                                        @foreach (['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'] as $bulan)
+                                                            <option value="{{ $loop->index + 1 }}"
+                                                                {{ $loop->index == date('n') - 1 ? 'selected' : '' }}>
+                                                                {{ $bulan }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group d-flex flex-row align-items-center ml-2">
+                                                    <label class="mb-0 mr-2" for="">Tahun</label>
+                                                    <select class="form-control year-filter" name="tahun">
+                                                        @for ($tahun = date('Y') - 5; $tahun <= date('Y'); $tahun++)
+                                                            <option value="{{ $tahun }}"
+                                                                {{ $tahun == date('Y') ? 'selected' : '' }}>
+                                                                {{ $tahun }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="form-group d-flex flex-row align-items-center ml-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Tampilkan Data</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info alert-dismissible">
+                                    @if (request()->has('bulan') && request()->has('tahun'))
+                                        Menampilkan data kehadiran karyawan bulan {{ request()->get('bulan') }} tahun
+                                        {{ request()->get('tahun') }}
+                                    @else
+                                        Menampilkan data kehadiran karyawan bulan semua
+                                    @endif
+                                </div>
+
                                 <div class="table-responsives">
                                     <table class="table table-striped table-hover table-full-width" id="main_table">
                                         <thead>
