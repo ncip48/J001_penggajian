@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\Auth\UbahPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanController;
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     //jabatan
     Route::resource('jabatan', JabatanController::class);
+
+    //absensi
+    Route::resource('absensi', AbsensiController::class);
 
     //ubah password
     Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');
