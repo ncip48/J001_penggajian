@@ -211,7 +211,7 @@
                         <li
                             class="nav-item {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.gaji') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
                                     Laporan
