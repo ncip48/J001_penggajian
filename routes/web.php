@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UbahPasswordController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,8 @@ Auth::routes();
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [DashboardController::class, 'index'])->name('profile');
+
+    //ubah password
+    Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');
+    Route::put('ubah-password', [UbahPasswordController::class, 'action'])->name('ubah-password.action');
 });

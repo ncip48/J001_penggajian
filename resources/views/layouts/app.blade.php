@@ -222,7 +222,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link ">
+                            <a href="{{ route('ubah-password') }}" class="nav-link ">
                                 <i class="nav-icon fas fa-key"></i>
                                 <p>
                                     Ubah Password
@@ -297,25 +297,8 @@
     <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
 
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script src="{{ asset('dist/iconpicker-1.5.0.js') }}"></script>
-
-    <script>
-        // Default options
-        // IconPicker.Init({
-        //     // Required: You have to set the path of IconPicker JSON file to "jsonUrl" option. e.g. '/content/plugins/IconPicker/dist/iconpicker-1.5.0.json'
-        //     jsonUrl: null,
-        //     // Optional: Change the buttons or search placeholder text according to the language.
-        //     searchPlaceholder: 'Search Icon',
-        //     showAllButton: 'Show All',
-        //     cancelButton: 'Cancel',
-        //     noResultsFound: 'No results found.', // v1.5.0 and the next versions
-        //     borderRadius: '20px', // v1.5.0 and the next versions
-        // });
-
-        // $('.icon').iconpicker();
-    </script>
 
     @stack('scripts')
 
@@ -336,22 +319,6 @@
                 "info": true,
                 "autoWidth": false,
             });
-        });
-    </script>
-
-    {{-- <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
-    <script>
-        FilePond.registerPlugin(FilePondPluginFileValidateType);
-        FilePond.registerPlugin(FilePondPluginFileValidateSize);
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-    </script>
-    <script>
-        this.addEventListener('pondReset', e => {
-            // console.log(FilePond.destroy(document.querySelector('input[name="filepond"]')))
-            FilePond.destroy(document.querySelector('input[name="filepond"]'))
         });
     </script>
 
