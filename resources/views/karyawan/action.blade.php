@@ -80,8 +80,21 @@ $is_edit = isset($data);
                                     </div>
                                     <div class="form-group">
                                         <label for="agama">Agama</label>
-                                        <input type="text" class="form-control" id="agama" name="agama"
-                                            value="{{ isset($data->agama) ? $data->agama : '' }}">
+                                        <select class="custom-select form-control-sm" id="agama" name="agama">
+                                            <option value="" selected disabled>Pilih Agama</option>
+                                            <option value="Islam" @if (isset($data->agama) && $data->agama == 'Islam') selected @endif>Islam
+                                            </option>
+                                            <option value="Kristen" @if (isset($data->agama) && $data->agama == 'Kristen') selected @endif>
+                                                Kristen</option>
+                                            <option value="Katolik" @if (isset($data->agama) && $data->agama == 'Katolik') selected @endif>
+                                                Katolik</option>
+                                            <option value="Hindu" @if (isset($data->agama) && $data->agama == 'Hindu') selected @endif>Hindu
+                                            </option>
+                                            <option value="Budha" @if (isset($data->agama) && $data->agama == 'Budha') selected @endif>Budha
+                                            </option>
+                                            <option value="Lainnya" @if (isset($data->agama) && $data->agama == 'Lainnya') selected @endif>
+                                                Lainnya</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="alamat_tinggal">Alamat Tinggal</label>
@@ -110,7 +123,8 @@ $is_edit = isset($data);
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal_masuk">Tanggal Masuk</label>
-                                        <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk"
+                                        <input type="date" class="form-control" id="tanggal_masuk"
+                                            name="tanggal_masuk"
                                             value="{{ isset($data->tanggal_masuk) ? $data->tanggal_masuk : '' }}">
                                     </div>
                                 </div>
