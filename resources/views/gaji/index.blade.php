@@ -130,9 +130,9 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $gaji->karyawan->jabatan->nama_jabatan }}</td>
-                                                    <td>{{ $gaji->gaji_pokok }}</td>
-                                                    <td>{{ $gaji->potongan_gaji }}</td>
-                                                    <td>{{ $gaji->total_gaji }}</td>
+                                                    <td>@currency($gaji->gaji_pokok)</td>
+                                                    <td>@currency($gaji->potongan_gaji)</td>
+                                                    <td>@currency($gaji->total_gaji)</td>
                                                     <td>
                                                         @if ($gaji->status == 0)
                                                             <span class="badge badge-info">Pending</span>

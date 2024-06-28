@@ -70,7 +70,7 @@
                                                     </td>
                                                     <td>{{ $potong->karyawan->nik }}</td>
                                                     <td>{{ $potong->karyawan->nama_karyawan }}</td>
-                                                    <td>{{ $potong->potongan_gaji }}</td>
+                                                    <td>@currency($potong->potongan_gaji)</td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <a href="{{ route('setting-potong-gaji.edit', $potong->id_potong_gaji) }}"
