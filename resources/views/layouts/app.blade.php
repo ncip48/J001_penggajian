@@ -295,7 +295,8 @@
 
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
-    <script src="{{ asset('dist/iconpicker-1.5.0.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}" type="text/javascript"></script>
+
 
     @stack('scripts')
 
@@ -392,11 +393,11 @@
                         if (reload) {
                             setTimeout(() => {
                                 location.reload();
-                            }, 1000);
+                            }, 800);
                         } else if (back) {
                             setTimeout(() => {
                                 location.href = back;
-                            }, 1000)
+                            }, 800)
                         } else {
                             dataMaster.draw(false);
                         }
@@ -493,8 +494,31 @@
                 }
             });
         });
-    </script>
 
+        $(".confirm-text").on("click", function(e) {
+            e.preventDefault();
+            var deleteButton = $(this);
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: 'Apakah yakin untuk menghapus data ini?',
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+                confirmButtonClass: "btn btn-primary",
+                cancelButtonClass: "btn btn-danger ml-1",
+                buttonsStyling: !1,
+                allowOutsideClick: false,
+            }).then(function(t) {
+                if (t.value) {
+                    // If user confirms deletion, submit the associated form
+                    deleteButton.closest("form").submit();
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>

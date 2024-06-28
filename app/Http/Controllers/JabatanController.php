@@ -116,6 +116,13 @@ class JabatanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $delete = Jabatan::findOrFail($id);
+        $delete->delete();
+
+        if ($delete) {
+            return $this->setResponse(true, "Sukses hapus jabatan");
+        } else {
+            return $this->setResponse(true, "Gagal update jabatan");
+        }
     }
 }

@@ -74,11 +74,20 @@
                                                     <td>{{ $jabatan->tunjangan_transportasi }}</td>
                                                     <td>{{ $jabatan->uang_makan }}</td>
                                                     <td>
-                                                        <a href="{{ route('jabatan.edit', $jabatan->id_jabatan) }}"
-                                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="deletejabatan({{ $jabatan->id }})"><i
-                                                                class="fas fa-trash"></i></button>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('jabatan.edit', $jabatan->id_jabatan) }}"
+                                                                class="btn btn-sm btn-warning"><i
+                                                                    class="fas fa-edit"></i></a>
+                                                            <form data-reload="true" id="main-form"
+                                                                action="{{ route('jabatan.destroy', $jabatan) }}"
+                                                                method="POST" class="ml-1 delete-form">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="confirm-text btn btn-sm btn-danger">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
