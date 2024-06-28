@@ -143,27 +143,29 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('absensi.index') }}"
-                                        class="nav-link {{ request()->routeIs('absensi.*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Absensi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('lembur.index') }}"
-                                        class="nav-link {{ request()->routeIs('lembur.*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Lembur</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('setting-potong-gaji.index') }}"
-                                        class="nav-link {{ request()->routeIs('setting-potong-gaji.*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Setting Potong</p>
-                                    </a>
-                                </li>
+                                @if (auth()->user()->level == 0)
+                                    <li class="nav-item">
+                                        <a href="{{ route('absensi.index') }}"
+                                            class="nav-link {{ request()->routeIs('absensi.*') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Data Absensi</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('lembur.index') }}"
+                                            class="nav-link {{ request()->routeIs('lembur.*') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Data Lembur</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('setting-potong-gaji.index') }}"
+                                            class="nav-link {{ request()->routeIs('setting-potong-gaji.*') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Setting Potong</p>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="{{ route('gaji.index') }}"
                                         class="nav-link {{ request()->routeIs('gaji.*') ? 'active' : '' }}">
@@ -173,33 +175,39 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="nav-item {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>
-                                    Master Data
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('karyawan.index') }}"
-                                        class="nav-link {{ request()->routeIs('karyawan.*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Karyawan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('jabatan.index') }}"
-                                        class="nav-link {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Jabatan</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (auth()->user()->level != 2)
+                            <li
+                                class="nav-item {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'menu-open' : '' }}">
+                                <a href="#"
+                                    class="nav-link {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-columns"></i>
+                                    <p>
+                                        Master Data
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (auth()->user()->level != 2)
+                                        <li class="nav-item">
+                                            <a href="{{ route('karyawan.index') }}"
+                                                class="nav-link {{ request()->routeIs('karyawan.*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Karyawan</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (auth()->user()->level == 0)
+                                        <li class="nav-item">
+                                            <a href="{{ route('jabatan.index') }}"
+                                                class="nav-link {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Data Jabatan</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
                         <li
                             class="nav-item {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') ? 'menu-open' : '' }}">
                             <a href="#"
@@ -211,20 +219,22 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('laporan.gaji') }}"
-                                        class="nav-link {{ request()->routeIs('laporan.gaji') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Laporan Gaji</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('laporan.absen') }}"
-                                        class="nav-link {{ request()->routeIs('laporan.absen') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Laporan Absen</p>
-                                    </a>
-                                </li>
+                                @if (auth()->user()->level == 0)
+                                    <li class="nav-item">
+                                        <a href="{{ route('laporan.gaji') }}"
+                                            class="nav-link {{ request()->routeIs('laporan.gaji') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Laporan Gaji</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('laporan.absen') }}"
+                                            class="nav-link {{ request()->routeIs('laporan.absen') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Laporan Absen</p>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="./index3.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>

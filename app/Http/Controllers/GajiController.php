@@ -22,6 +22,10 @@ class GajiController extends Controller
                 ->get();
         }
 
+        if (auth()->user()->level == 2) {
+            $gajis = $gajis->where('id_user', auth()->user()->id_user);
+        }
+
         $gajis = $gajis->map(function ($item) {
             $item->total_gaji = $item->gaji_pokok + $item->total_bonus - $item->potongan_gaji;
             return $item;
