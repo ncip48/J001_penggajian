@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use App\Models\Karyawan;
+use App\Models\Lembur;
+use App\Models\PotonganGaji;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -151,5 +153,37 @@ class AbsensiController extends Controller
         } else {
             return $this->setResponse(false, "Absensi tidak ditemukan", []);
         }
+    }
+
+    public function cariAbsensiLembur(Request $request)
+    {
+        $gaji_pokok = Karyawan::with('jabatan')->where('id_karyawan', $request->id_karyawan)->first();
+
+        $potongan = PotonganGaji::whereMonth('bulan', $request->bulan)
+            ->whereYear('bulan', $request->tahun)
+            ->where('id_karyawan', $request->id_karyawan)
+            ->first();
+
+        $lembur = Lembur::whereMonth('tanggal', $request->bulan)
+            ->whereYear('tanggal', $request->tahun)
+            ->where('id_karyawan', $request->id_karyawan)
+            ->get();
+
+        $obj = [];
+        $obj['gaji_pokok'] = $gaji_pokok->jabatan->gaji_pokok;
+
+        if ($potongan) {
+            $obj['potongan'] = $potongan->potongan_gaji;
+        } else {
+            $obj['potongan'] = 0;
+        }
+
+        if ($lembur) {
+            $obj['lembur'] = $lembur->pluck('jam')->sum();
+        } else {
+            $obj['lembur'] = 0;
+        }
+
+        return $this->setResponse(true, "Sukses get data", $obj);
     }
 }

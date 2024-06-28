@@ -133,9 +133,9 @@
                             </a>
                         </li>
                         <li
-                            class="nav-item {{ request()->routeIs('absensi.*') || request()->routeIs('lembur.*') || request()->routeIs('setting-potong-gaji.*') ? 'menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('absensi.*') || request()->routeIs('lembur.*') || request()->routeIs('setting-potong-gaji.*') || request()->routeIs('gaji.*') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->routeIs('absensi.*') || request()->routeIs('lembur.*') || request()->routeIs('setting-potong-gaji.*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('absensi.*') || request()->routeIs('lembur.*') || request()->routeIs('setting-potong-gaji.*') || request()->routeIs('gaji.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Transaksi
@@ -165,7 +165,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="{{ route('gaji.index') }}"
+                                        class="nav-link {{ request()->routeIs('gaji.*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Gaji</p>
                                     </a>

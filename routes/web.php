@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\Auth\UbahPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GajiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LemburController;
@@ -45,6 +46,9 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     //setting potong gaji
     Route::resource('setting-potong-gaji', PotongGajiController::class);
+
+    //gaji
+    Route::resource('gaji', GajiController::class);
 
     //ubah password
     Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');

@@ -67,7 +67,7 @@
                                             @foreach ($lemburs as $index => $lembur)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($lembur->tanggal)->locale('id')->isoFormat('d MMMM Y') }}
+                                                    <td>{{ \Carbon\Carbon::parse($lembur->tanggal)->locale('id')->isoFormat('D MMMM Y') }}
                                                     </td>
                                                     <td>{{ $lembur->karyawan->nik }}</td>
                                                     <td>{{ $lembur->karyawan->nama_karyawan }}</td>

@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('cari-absensi', [AbsensiController::class, 'cariAbsensi'])->name('absen.cari');
+Route::post('cari-absensi-lembur', [AbsensiController::class, 'cariAbsensiLembur'])->name('absen.lembur.cari');
