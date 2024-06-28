@@ -45,9 +45,11 @@
                                         </h6>
                                     </div>
                                     <div class="card-tools">
-                                        <a class="btn btn-sm btn-primary mt-1" href="{{ route('karyawan.create') }}"><i
-                                                class="fas fa-plus"></i>
-                                            Add Karyawan</a>
+                                        @if (auth()->user()->level == 0)
+                                            <a class="btn btn-sm btn-primary mt-1" href="{{ route('karyawan.create') }}"><i
+                                                    class="fas fa-plus"></i>
+                                                Add Karyawan</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +66,9 @@
                                                 <th>Jabatan</th>
                                                 <th>Tanggal Masuk</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                @if (auth()->user()->level == 0)
+                                                    <th>Action</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -85,22 +89,24 @@
                                                         {{ \Carbon\Carbon::parse($karyawan->tanggal_masuk)->locale('id')->isoFormat('DD MMMM Y') }}
                                                     </td>
                                                     <td>{{ $karyawan->status_perkawinan }}</td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}"
-                                                                class="btn btn-sm btn-warning"><i
-                                                                    class="fas fa-edit"></i></a>
-                                                            <form data-reload="true" id="main-form"
-                                                                action="{{ route('karyawan.destroy', $karyawan) }}"
-                                                                method="POST" class="ml-1 delete-form">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="confirm-text btn btn-sm btn-danger">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                    @if (auth()->user()->level == 0)
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}"
+                                                                    class="btn btn-sm btn-warning"><i
+                                                                        class="fas fa-edit"></i></a>
+                                                                <form data-reload="true" id="main-form"
+                                                                    action="{{ route('karyawan.destroy', $karyawan) }}"
+                                                                    method="POST" class="ml-1 delete-form">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="confirm-text btn btn-sm btn-danger">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -42,9 +42,11 @@
                                         </h3>
                                     </div>
                                     <div class="card-tools">
-                                        <a class="btn btn-sm btn-primary mt-1" href="{{ route('gaji.create') }}"><i
-                                                class="fas fa-plus"></i>
-                                            Input Gaji</a>
+                                        @if (auth()->user()->level == 0)
+                                            <a class="btn btn-sm btn-primary mt-1" href="{{ route('gaji.create') }}"><i
+                                                    class="fas fa-plus"></i>
+                                                Input Gaji</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +113,9 @@
                                                 <th>Potongan</th>
                                                 <th>Total Gaji</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                @if (auth()->user()->level != 2)
+                                                    <th>Action</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -142,22 +146,26 @@
                                                             <span class="badge badge-danger">Ditolak</span>
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <a href="{{ route('gaji.edit', $gaji->id_gaji) }}"
-                                                                class="btn btn-sm btn-warning"><i
-                                                                    class="fas fa-edit"></i></a>
-                                                            <form data-reload="true" id="main-form"
-                                                                action="{{ route('gaji.destroy', $gaji) }}" method="POST"
-                                                                class="ml-1 delete-form">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="confirm-text btn btn-sm btn-danger">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                    @if (auth()->user()->level != 2)
+                                                        <td>
+                                                            @if (auth()->user()->level == 0)
+                                                                <div class="d-flex">
+                                                                    <a href="{{ route('gaji.edit', $gaji->id_gaji) }}"
+                                                                        class="btn btn-sm btn-warning"><i
+                                                                            class="fas fa-edit"></i></a>
+                                                                    <form data-reload="true" id="main-form"
+                                                                        action="{{ route('gaji.destroy', $gaji) }}"
+                                                                        method="POST" class="ml-1 delete-form">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="confirm-text btn btn-sm btn-danger">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
