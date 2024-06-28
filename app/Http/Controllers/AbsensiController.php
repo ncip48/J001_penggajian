@@ -135,7 +135,7 @@ class AbsensiController extends Controller
         if ($delete) {
             return $this->setResponse(true, "Sukses hapus absensi");
         } else {
-            return $this->setResponse(true, "Gagal update absensi");
+            return $this->setResponse(true, "Gagal hapus absensi");
         }
     }
 

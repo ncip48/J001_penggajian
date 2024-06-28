@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
-use App\Models\PotonganGaji;
-use Carbon\Carbon;
+use App\Models\Lembur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PotongGajiController extends Controller
+class LemburController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $potongs = PotonganGaji::all();
-        return view('potong_gaji.index')
-            ->with('potongs', $potongs);
+        $lemburs = Lembur::all();
+        return view('lembur.index')
+            ->with('lemburs', $lemburs);
     }
 
     /**
@@ -26,7 +25,7 @@ class PotongGajiController extends Controller
     public function create()
     {
         $karyawans = Karyawan::all();
-        return view('potong_gaji.action')
+        return view('lembur.action')
             ->with('karyawans', $karyawans);
     }
 
@@ -37,14 +36,12 @@ class PotongGajiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_karyawan' => 'required',
-            'bulan' => 'required',
-            'alpha' => 'required',
-            'potongan_gaji' => 'required',
+            'tanggal' => 'required',
+            'jam' => 'required',
         ], [
             'id_karyawan.required' => 'Karyawan tidak boleh kosong',
-            'bulan.required' => 'Bulan tidak boleh kosong',
-            'alpha.required' => 'Jumlah hari alpha tidak boleh kosong',
-            'potongan_gaji.required' => 'Potongan Gaji tidak boleh kosong',
+            'tanggal.required' => 'Tanggal tidak boleh kosong',
+            'jam.required' => 'Jumlah jam tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -55,11 +52,10 @@ class PotongGajiController extends Controller
             return $this->setResponse(false, "Validation Error", $errors);
         }
 
-        $request['bulan'] = $request['bulan'] . '-01';
         $request['id_user'] = Karyawan::where('id_karyawan', $request->id_karyawan)->first()->id_user;
-        PotonganGaji::create($request->all());
+        Lembur::create($request->all());
 
-        return $this->setResponse(true, "Sukses membuat potongan gaji");
+        return $this->setResponse(true, "Sukses membuat lembur");
     }
 
     /**
@@ -76,9 +72,8 @@ class PotongGajiController extends Controller
     public function edit(string $id)
     {
         $karyawans = Karyawan::all();
-        $data = PotonganGaji::find($id);
-        $data->bulan = Carbon::parse($data->bulan)->format('Y-m');
-        return view('potong_gaji.action')
+        $data = Lembur::find($id);
+        return view('lembur.action')
             ->with('data', $data)
             ->with('karyawans', $karyawans);
     }
@@ -92,14 +87,12 @@ class PotongGajiController extends Controller
 
         $validator = Validator::make($request->all(), [
             'id_karyawan' => 'required',
-            'bulan' => 'required',
-            'alpha' => 'required',
-            'potongan_gaji' => 'required',
+            'tanggal' => 'required',
+            'jam' => 'required',
         ], [
             'id_karyawan.required' => 'Karyawan tidak boleh kosong',
-            'bulan.required' => 'Bulan tidak boleh kosong',
-            'alpha.required' => 'Jumlah hari alpha tidak boleh kosong',
-            'potongan_gaji.required' => 'Potongan Gaji tidak boleh kosong',
+            'tanggal.required' => 'Tanggal tidak boleh kosong',
+            'jam.required' => 'Jumlah jam tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -110,10 +103,9 @@ class PotongGajiController extends Controller
             return $this->setResponse(false, "Validation Error", $errors);
         }
 
-        $request['bulan'] = $request['bulan'] . '-01';
-        PotonganGaji::where('id_potong_gaji', $id)->update($request->all());
+        Lembur::where('id_lembur', $id)->update($request->all());
 
-        return $this->setResponse(true, "Sukses update potongan gaji");
+        return $this->setResponse(true, "Sukses update lembur");
     }
 
     /**
@@ -121,13 +113,13 @@ class PotongGajiController extends Controller
      */
     public function destroy(string $id)
     {
-        $delete = PotonganGaji::findOrFail($id);
+        $delete = Lembur::findOrFail($id);
         $delete->delete();
 
         if ($delete) {
-            return $this->setResponse(true, "Sukses hapus potongan gaji");
+            return $this->setResponse(true, "Sukses hapus lembur");
         } else {
-            return $this->setResponse(true, "Gagal hapus potongan gaji");
+            return $this->setResponse(true, "Gagal hapus lembur");
         }
     }
 }

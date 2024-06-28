@@ -122,7 +122,7 @@ class JabatanController extends Controller
         if ($delete) {
             return $this->setResponse(true, "Sukses hapus jabatan");
         } else {
-            return $this->setResponse(true, "Gagal update jabatan");
+            return $this->setResponse(true, "Gagal hapus jabatan");
         }
     }
 }

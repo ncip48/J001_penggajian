@@ -196,7 +196,7 @@ class KaryawanController extends Controller
         if ($delete) {
             return $this->setResponse(true, "Sukses hapus karyawan");
         } else {
-            return $this->setResponse(true, "Gagal update karyawan");
+            return $this->setResponse(true, "Gagal hapus karyawan");
         }
     }
 }

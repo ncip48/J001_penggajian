@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\User;
@@ -14,7 +15,7 @@ class DashboardController extends Controller
         $data_karyawan = Karyawan::count();
         $data_admin = User::where('level', 0)->count();
         $data_jabatan = Jabatan::count();
-        $data_kehadiran = 0;
+        $data_kehadiran = Absensi::count();
         return view('dashboard')
             ->with('data_karyawan', $data_karyawan)
             ->with('data_admin', $data_admin)
