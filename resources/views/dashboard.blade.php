@@ -72,7 +72,7 @@
                                 <p>Data Jabatan</p>
                             </div>
                             <div class="icon">
-                                <i class="nav-icon fas fa-chart-alt"></i>
+                                <i class="nav-icon fas fa-graduation-cap"></i>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                                 <p>Data Kehadiran</p>
                             </div>
                             <div class="icon">
-                                <i class="nav-icon fas fa-chart"></i>
+                                <i class="nav-icon fas fa-calendar"></i>
                             </div>
                         </div>
                     </div>

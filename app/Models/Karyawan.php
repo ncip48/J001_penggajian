@@ -30,4 +30,20 @@ class Karyawan extends Model
         'status_perkawinan',
         'tanggal_masuk'
     ];
+
+    /**
+     * Get the user associated with the karyawan.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'id_user');
+    }
+
+    /**
+     * Get the jabatan associated with the karyawan.
+     */
+    public function jabatan()
+    {
+        return $this->belongsTo('App\Models\Jabatan', 'id_jabatan');
+    }
 }

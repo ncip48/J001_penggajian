@@ -15,5 +15,7 @@ class Jabatan extends Model
         'nama_jabatan',
         'gaji_pokok',
         'uang_lembur',
+        'tunjangan_transportasi',
+        'uang_makan'
     ];
 }

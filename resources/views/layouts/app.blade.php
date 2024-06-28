@@ -103,9 +103,6 @@
                     <div class="info align-text-center" style="text-wrap:wrap">
                         <a class="d-block">{{ Auth::user()->name }}
                     </div>
-                    <a href="{{ route('profile') }}" class="ml-2">
-                        <i class="fas fa-cog"></i>
-                    </a>
                 </div>
 
                 {{-- <!-- SidebarSearch Form -->
@@ -127,7 +124,8 @@
                         data-accordion="false">
 
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link ">
+                            <a href="{{ route('dashboard') }}"
+                                class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -163,8 +161,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li
+                            class="nav-item {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'menu-open' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ request()->routeIs('karyawan.*') || request()->routeIs('jabatan.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>
                                     Master Data
@@ -173,21 +173,17 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="{{ route('karyawan.index') }}"
+                                        class="nav-link {{ request()->routeIs('karyawan.*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>Data Karyawan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="{{ route('jabatan.index') }}"
+                                        class="nav-link {{ request()->routeIs('jabatan.*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
+                                        <p>Data Jabatan</p>
                                     </a>
                                 </li>
                             </ul>
@@ -222,7 +218,8 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('ubah-password') }}" class="nav-link ">
+                            <a href="{{ route('ubah-password') }}"
+                                class="nav-link {{ request()->routeIs('ubah-password') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-key"></i>
                                 <p>
                                     Ubah Password
@@ -307,7 +304,7 @@
 
     <script>
         $(function() {
-            $("#example1").DataTable({
+            $("#main_table").DataTable({
                 "lengthChange": false,
                 "autoWidth": true,
             })
@@ -321,18 +318,7 @@
             });
         });
     </script>
-
     <script>
-        var $modal = $('#ajax-modal');
-
-        function isJSON(str) {
-            if (typeof str == 'string') {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
         function resetForm(el, exc) {
             exc = (typeof exc != 'undefined') ? exc : '';
             $('.select2, .selectbox', el).not(exc).val("").trigger("change");
@@ -341,43 +327,6 @@
             $('label.custom-file-label').text('');
         }
 
-        function closeModal(mdl, dt = {}) {
-            if (dt.hasOwnProperty('success')) {
-                if (dt.success) {
-                    setTimeout(function() {
-                        $modal.modal('hide');
-                    }, 1000);
-                }
-            } else {
-                if (mdl) {
-                    setTimeout(function() {
-                        $(mdl).modal('toggle');
-                    }, 1000);
-                }
-            }
-        }
-
-        $('body').on('click', '.ajax_modal', function(ev) {
-            ev.preventDefault();
-            let u = $(this).data('url');
-
-            //fetch with ajax
-            $.ajax({
-                url: u,
-                type: 'GET',
-                success: function(response) {
-                    if (!isJSON(response)) {
-                        $modal.html(response);
-                        $modal.modal('show');
-                    } else {
-                        toastr.error(response?.message);
-                    }
-                }
-            });
-        });
-    </script>
-
-    <script>
         function getError(data) {
             if (data.hasOwnProperty('success')) {
                 if (!data.success) {
@@ -405,7 +354,7 @@
 
         function hideLoadingButton(btn) {
             btn.attr('disabled', false);
-            btn.html('Save');
+            btn.html('Simpan');
         }
 
         //#GetIconPicker on click
@@ -419,6 +368,7 @@
             var form = $(this);
             //get the data-reload="true" attribute
             var reload = form.data('reload');
+            var back = form.data('back');
             var btn_save = $(this).find('#btn-save');
             var url = form.attr('action');
             var method = form.attr('method');
@@ -443,13 +393,21 @@
                             setTimeout(() => {
                                 location.reload();
                             }, 1000);
+                        } else if (back) {
+                            setTimeout(() => {
+                                location.href = back;
+                            }, 1000)
                         } else {
                             dataMaster.draw(false);
                         }
                     } else {
                         getError(data)
                     }
-                    closeModal($modal, data);
+                },
+                error: function(err) {
+                    // console.log(err)
+                    hideLoadingButton(btn_save);
+                    toastr.error(err.statusText)
                 }
             });
         });

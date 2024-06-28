@@ -17,6 +17,9 @@ class UbahPasswordController extends Controller
 
     public function index()
     {
+        //cek auth
+        $this->checkAuth([0]);
+
         $breadcrumbs = [
             ["url" => "#", 'title' => "Home"],
             ['url' => $this->url, 'title' => $this->title],

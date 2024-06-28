@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\UbahPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +25,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth', 'web'])->group(function () {
+    //dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('profile', [DashboardController::class, 'index'])->name('profile');
+
+    //karyawan
+    Route::resource('karyawan', KaryawanController::class);
+
+    //jabatan
+    Route::resource('jabatan', JabatanController::class);
 
     //ubah password
     Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');

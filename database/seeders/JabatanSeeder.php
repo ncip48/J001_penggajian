@@ -18,6 +18,8 @@ class JabatanSeeder extends Seeder
                 'nama_jabatan' => 'IT',
                 'gaji_pokok' => 3000000,
                 'uang_lembur' => 100000,
+                'tunjangan_transportasi' => 150000,
+                'uang_makan' => 100000
             ]
         ]);
     }

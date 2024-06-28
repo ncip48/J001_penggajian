@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id('id_jabatan');
             $table->string('nama_jabatan');
             $table->integer('gaji_pokok');
-            $table->integer('uang_lembur');
+            $table->integer('uang_lembur')->nullable();
+            $table->integer('tunjangan_transportasi');
+            $table->integer('uang_makan');
             $table->timestamps();
         });
     }
