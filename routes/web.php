@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\UbahPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PotongGajiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,9 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     //absensi
     Route::resource('absensi', AbsensiController::class);
+
+    //setting potong gaji
+    Route::resource('setting-potong-gaji', PotongGajiController::class);
 
     //ubah password
     Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');

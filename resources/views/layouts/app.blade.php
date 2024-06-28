@@ -133,9 +133,9 @@
                             </a>
                         </li>
                         <li
-                            class="nav-item {{ request()->routeIs('absensi.*') || request()->routeIs('potongan.*') ? 'menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('absensi.*') || request()->routeIs('setting-potong-gaji.*') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->routeIs('absensi.*') || request()->routeIs('potongan.*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('absensi.*') || request()->routeIs('setting-potong-gaji.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Transaksi
@@ -151,7 +151,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="{{ route('setting-potong-gaji.index') }}"
+                                        class="nav-link {{ request()->routeIs('setting-potong-gaji.*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Setting Potong</p>
                                     </a>

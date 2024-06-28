@@ -17,7 +17,7 @@
                                 <a href="#">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Master Data</a>
+                                <a href="#">Transaksi</a>
                             </li>
                             <li class="breadcrumb-item active">
                                 Data Absensi
@@ -87,8 +87,11 @@
                                 </div>
                                 <div class="alert alert-info alert-dismissible">
                                     @if (request()->has('bulan') && request()->has('tahun'))
-                                        Menampilkan data kehadiran karyawan bulan {{ request()->get('bulan') }} tahun
-                                        {{ request()->get('tahun') }}
+                                        Menampilkan data kehadiran karyawan bulan
+                                        {{ \Carbon\Carbon::createFromFormat('m', request()->get('bulan'))->locale('id')->isoFormat('MMMM') }}
+                                        tahun
+                                        {{ request()->get('tahun') }}. <a class="badge badge-pill badge-dark"
+                                            href="{{ route('absensi.index') }}">Reset</a>
                                     @else
                                         Menampilkan data kehadiran karyawan bulan semua
                                     @endif
@@ -99,6 +102,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Periode</th>
                                                 <th>NIK</th>
                                                 <th>Nama</th>
                                                 <th>Jenis Kelamin</th>
@@ -113,6 +117,8 @@
                                             @foreach ($absensis as $index => $absensi)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($absensi->bulan)->locale('id')->isoFormat('MMMM Y') }}
+                                                    </td>
                                                     <td>{{ $absensi->karyawan->nik }}</td>
                                                     <td>{{ $absensi->karyawan->nama_karyawan }}</td>
                                                     <td>

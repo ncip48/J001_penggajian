@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Karyawan')
+@section('title', 'Setting Potong Gaji')
 
 @section('content')
     <div class="content-wrapper">
@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Karyawan</h1>
+                        <h1>Setting Potong Gaji</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -17,10 +17,10 @@
                                 <a href="#">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">Master Data</a>
+                                <a href="#">Transaksi</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Data Karyawan
+                                Setting Potong Gaji
                             </li>
                         </ol>
                     </div>
@@ -38,16 +38,13 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column">
                                         <h3 class="card-title mt-1">
-                                            Daftar Karyawan
+                                            Daftar Setting Potong Gaji
                                         </h3>
-                                        <h6 class="mt-1">
-                                            Jumlah Karyawan : {{ $jumlah_karyawan }}
-                                        </h6>
                                     </div>
                                     <div class="card-tools">
-                                        <a class="btn btn-sm btn-primary mt-1" href="{{ route('karyawan.create') }}"><i
-                                                class="fas fa-plus"></i>
-                                            Add Karyawan</a>
+                                        <a class="btn btn-sm btn-primary mt-1"
+                                            href="{{ route('setting-potong-gaji.create') }}"><i class="fas fa-plus"></i>
+                                            Tambah Potongan</a>
                                     </div>
                                 </div>
                             </div>
@@ -58,40 +55,29 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Periode</th>
                                                 <th>NIK</th>
                                                 <th>Nama</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Jabatan</th>
-                                                <th>Tanggal Masuk</th>
-                                                <th>Status</th>
+                                                <th>Jumlah Potongan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($karyawans as $index => $karyawan)
+                                            @foreach ($potongs as $index => $potong)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $karyawan->nik }}</td>
-                                                    <td>{{ $karyawan->nama_karyawan }}</td>
-                                                    <td>
-                                                        @if ($karyawan->kelamin == 'L')
-                                                            Laki-Laki
-                                                        @else
-                                                            Perempuan
-                                                        @endif
+                                                    <td>{{ \Carbon\Carbon::parse($potong->bulan)->locale('id')->isoFormat('MMMM Y') }}
                                                     </td>
-                                                    <td>{{ $karyawan->jabatan->nama_jabatan }}</td>
-                                                    <td>
-                                                        {{ \Carbon\Carbon::parse($karyawan->tanggal_masuk)->locale('id')->isoFormat('DD MMMM Y') }}
-                                                    </td>
-                                                    <td>{{ $karyawan->status_perkawinan }}</td>
+                                                    <td>{{ $potong->karyawan->nik }}</td>
+                                                    <td>{{ $potong->karyawan->nama_karyawan }}</td>
+                                                    <td>{{ $potong->potongan_gaji }}</td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}"
+                                                            <a href="{{ route('setting-potong-gaji.edit', $potong->id_potong_gaji) }}"
                                                                 class="btn btn-sm btn-warning"><i
                                                                     class="fas fa-edit"></i></a>
                                                             <form data-reload="true" id="main-form"
-                                                                action="{{ route('karyawan.destroy', $karyawan) }}"
+                                                                action="{{ route('setting-potong-gaji.destroy', $potong) }}"
                                                                 method="POST" class="ml-1 delete-form">
                                                                 @csrf
                                                                 @method('DELETE')

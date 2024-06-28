@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absensi;
 use App\Models\Karyawan;
+use App\Models\PotonganGaji;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AbsensiController extends Controller
+class PotongGajiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $absensis = Absensi::all();
-        if ($request->bulan && $request->tahun) {
-            $absensis = Absensi::whereMonth('bulan', $request->bulan)
-                ->whereYear('bulan', $request->tahun)
-                ->get();
-        }
-        return view('absensi.index')
-            ->with('absensis', $absensis);
+        $potongs = PotonganGaji::all();
+        return view('potong_gaji.index')
+            ->with('potongs', $potongs);
     }
 
     /**
@@ -31,7 +26,7 @@ class AbsensiController extends Controller
     public function create()
     {
         $karyawans = Karyawan::all();
-        return view('absensi.action')
+        return view('potong_gaji.action')
             ->with('karyawans', $karyawans);
     }
 
@@ -43,15 +38,13 @@ class AbsensiController extends Controller
         $validator = Validator::make($request->all(), [
             'id_karyawan' => 'required',
             'bulan' => 'required',
-            'masuk' => 'required',
-            'izin' => 'required',
             'alpha' => 'required',
+            'potongan_gaji' => 'required',
         ], [
             'id_karyawan.required' => 'Karyawan tidak boleh kosong',
             'bulan.required' => 'Bulan tidak boleh kosong',
-            'masuk.required' => 'Jumlah hari masuk tidak boleh kosong',
-            'izin.required' => 'Jumlah hari izin tidak boleh kosong',
             'alpha.required' => 'Jumlah hari alpha tidak boleh kosong',
+            'potongan_gaji.required' => 'Potongan Gaji tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -63,9 +56,10 @@ class AbsensiController extends Controller
         }
 
         $request['bulan'] = $request['bulan'] . '-01';
-        Absensi::create($request->all());
+        $request['id_user'] = Karyawan::where('id_karyawan', $request->id_karyawan)->first()->id_user;
+        PotonganGaji::create($request->all());
 
-        return $this->setResponse(true, "Sukses membuat absensi");
+        return $this->setResponse(true, "Sukses membuat potongan gaji");
     }
 
     /**
@@ -82,9 +76,9 @@ class AbsensiController extends Controller
     public function edit(string $id)
     {
         $karyawans = Karyawan::all();
-        $data = Absensi::find($id);
+        $data = PotonganGaji::find($id);
         $data->bulan = Carbon::parse($data->bulan)->format('Y-m');
-        return view('absensi.action')
+        return view('potong_gaji.action')
             ->with('data', $data)
             ->with('karyawans', $karyawans);
     }
@@ -99,15 +93,13 @@ class AbsensiController extends Controller
         $validator = Validator::make($request->all(), [
             'id_karyawan' => 'required',
             'bulan' => 'required',
-            'masuk' => 'required',
-            'izin' => 'required',
             'alpha' => 'required',
+            'potongan_gaji' => 'required',
         ], [
             'id_karyawan.required' => 'Karyawan tidak boleh kosong',
             'bulan.required' => 'Bulan tidak boleh kosong',
-            'masuk.required' => 'Jumlah hari masuk tidak boleh kosong',
-            'izin.required' => 'Jumlah hari izin tidak boleh kosong',
             'alpha.required' => 'Jumlah hari alpha tidak boleh kosong',
+            'potongan_gaji.required' => 'Potongan Gaji tidak boleh kosong',
         ]);
 
         if ($validator->fails()) {
@@ -119,9 +111,9 @@ class AbsensiController extends Controller
         }
 
         $request['bulan'] = $request['bulan'] . '-01';
-        Absensi::where('id_absensi', $id)->update($request->all());
+        PotonganGaji::where('id_potong_gaji', $id)->update($request->all());
 
-        return $this->setResponse(true, "Sukses update absensi");
+        return $this->setResponse(true, "Sukses update potongan gaji");
     }
 
     /**
@@ -129,27 +121,13 @@ class AbsensiController extends Controller
      */
     public function destroy(string $id)
     {
-        $delete = Absensi::findOrFail($id);
+        $delete = PotonganGaji::findOrFail($id);
         $delete->delete();
 
         if ($delete) {
-            return $this->setResponse(true, "Sukses hapus absensi");
+            return $this->setResponse(true, "Sukses hapus potongan gaji");
         } else {
-            return $this->setResponse(true, "Gagal update absensi");
-        }
-    }
-
-    public function cariAbsensi(Request $request)
-    {
-        $absensi = Absensi::whereMonth('bulan', $request->bulan)
-            ->whereYear('bulan', $request->tahun)
-            ->where('id_karyawan', $request->id_karyawan)
-            ->first();
-
-        if ($absensi) {
-            return $this->setResponse(true, "Sukses get absensi", $absensi);
-        } else {
-            return $this->setResponse(false, "Absensi tidak ditemukan", []);
+            return $this->setResponse(true, "Gagal update potongan gaji");
         }
     }
 }
