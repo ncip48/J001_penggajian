@@ -58,9 +58,10 @@ $is_edit = isset($data);
                                             value="{{ isset($data->gaji_pokok) ? $data->gaji_pokok : '' }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="uang_lembur">Uang Lembur</label>
+                                        <label for="uang_lembur">Uang Lembur (/jam)</label>
                                         <input type="text" class="form-control" id="uang_lembur" name="uang_lembur"
                                             value="{{ isset($data->uang_lembur) ? $data->uang_lembur : '' }}">
+                                        <small class="text-xs text-muted">Masukkan nominal uang lembur per jam</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="tunjangan_transportasi">Tunjangan Transportasi</label>
@@ -69,9 +70,10 @@ $is_edit = isset($data);
                                             value="{{ isset($data->tunjangan_transportasi) ? $data->tunjangan_transportasi : '' }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="uang_makan">Uang Makan</label>
+                                        <label for="uang_makan">Uang Makan (/hari)</label>
                                         <input type="text" class="form-control" id="uang_makan" name="uang_makan"
                                             value="{{ isset($data->uang_makan) ? $data->uang_makan : '' }}">
+                                        <small class="text-xs text-muted">Masukkan nominal uang makan per hari</small>
                                     </div>
                                 </div>
 

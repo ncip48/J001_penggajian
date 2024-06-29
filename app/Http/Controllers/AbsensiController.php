@@ -169,8 +169,24 @@ class AbsensiController extends Controller
             ->where('id_karyawan', $request->id_karyawan)
             ->get();
 
+        $absensi = Absensi::select('izin', 'masuk', 'alpha')->whereMonth('bulan', $request->bulan)
+            ->whereYear('bulan', $request->tahun)
+            ->where('id_karyawan', $request->id_karyawan)
+            ->first();
+
         $obj = [];
-        $obj['gaji_pokok'] = $gaji_pokok->jabatan->gaji_pokok;
+        $obj['gaji']['uang_lembur'] = $gaji_pokok->jabatan->uang_lembur;
+        $obj['gaji']['uang_makan'] = $gaji_pokok->jabatan->uang_makan;
+        $obj['gaji']['tunjangan_transportasi'] = $gaji_pokok->jabatan->tunjangan_transportasi;
+        $obj['gaji']['gaji_pokok'] = $gaji_pokok->jabatan->gaji_pokok;
+
+        if ($absensi) {
+            $obj['absensi'] = $absensi;
+        } else {
+            $obj['absensi']['izin'] = 0;
+            $obj['absensi']['masuk'] = 0;
+            $obj['absensi']['alpha'] = 0;
+        }
 
         if ($potongan) {
             $obj['potongan'] = $potongan->potongan_gaji;

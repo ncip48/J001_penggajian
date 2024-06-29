@@ -8,6 +8,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LaporanAbsen;
 use App\Http\Controllers\LaporanGaji;
+use App\Http\Controllers\LaporanSlipGaji;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\PotongGajiController;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,8 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::post('laporan-gaji', [LaporanGaji::class, 'print'])->name('laporan.gaji.print');
     Route::get('laporan-absen', [LaporanAbsen::class, 'index'])->name('laporan.absen');
     Route::post('laporan-absen', [LaporanAbsen::class, 'print'])->name('laporan.absen.print');
+    Route::get('slip-gaji', [LaporanSlipGaji::class, 'index'])->name('slip.gaji');
+    Route::post('slip-gaji', [LaporanSlipGaji::class, 'print'])->name('slip.gaji.print');
 
     //ubah password
     Route::get('ubah-password', [UbahPasswordController::class, 'index'])->name('ubah-password');

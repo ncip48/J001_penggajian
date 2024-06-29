@@ -209,9 +209,9 @@
                             </li>
                         @endif
                         <li
-                            class="nav-item {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') ? 'menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') || request()->routeIs('slip.gaji') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('laporan.gaji') || request()->routeIs('laporan.absen') || request()->routeIs('slip.gaji') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
                                     Laporan
@@ -236,7 +236,8 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
+                                    <a href="{{ route('slip.gaji') }}"
+                                        class="nav-link {{ request()->routeIs('slip.gaji') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Slip Gaji</p>
                                     </a>

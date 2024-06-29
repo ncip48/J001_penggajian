@@ -62,6 +62,7 @@
                                                 <th>Gaji Pokok</th>
                                                 <th>Tunjangan Transportasi</th>
                                                 <th>Uang Makan</th>
+                                                <th>Uang Lembur</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -70,9 +71,10 @@
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $jabatan->nama_jabatan }}</td>
-                                                    <td>{{ $jabatan->gaji_pokok }}</td>
-                                                    <td>{{ $jabatan->tunjangan_transportasi }}</td>
-                                                    <td>{{ $jabatan->uang_makan }}</td>
+                                                    <td>@currency($jabatan->gaji_pokok)</td>
+                                                    <td>@currency($jabatan->tunjangan_transportasi)</td>
+                                                    <td>@currency($jabatan->uang_makan)/hari</td>
+                                                    <td>@currency($jabatan->uang_lembur)/jam</td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <a href="{{ route('jabatan.edit', $jabatan->id_jabatan) }}"
