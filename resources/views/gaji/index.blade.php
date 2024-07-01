@@ -149,20 +149,22 @@
                                                     @if (auth()->user()->level != 2)
                                                         <td>
                                                             @if (auth()->user()->level == 1)
-                                                                <a href="{{ route('gaji.show', $gaji->id_gaji) }}"
-                                                                    class="btn btn-sm btn-primary"><i
-                                                                        class="fas fa-eye"></i></a>
-                                                                @if ($gaji->status == 0)
-                                                                    <form data-reload="true" id="main-form"
-                                                                        action="{{ route('gaji.destroy', $gaji) }}"
-                                                                        method="POST" class="ml-1 delete-form">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button class="confirm-text btn btn-sm btn-danger">
-                                                                            <i class="fas fa-trash"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                @endif
+                                                                <div class="d-flex">
+                                                                    <a href="{{ route('gaji.show', $gaji->id_gaji) }}"
+                                                                        class="btn btn-sm btn-primary"><i
+                                                                            class="fas fa-eye"></i></a>
+                                                                    @if ($gaji->status == 0)
+                                                                        <form data-reload="true" id="main-form"
+                                                                            action="{{ route('gaji.approve', $gaji->id_gaji) }}"
+                                                                            method="POST" class="ml-1 acc-form">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <button class="acc-text btn btn-sm btn-success">
+                                                                                <i class="fas fa-check"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                    @endif
+                                                                </div>
                                                             @endif
                                                             @if (auth()->user()->level == 0)
                                                                 <div class="d-flex">

@@ -159,4 +159,17 @@ class GajiController extends Controller
             return $this->setResponse(true, "Gagal hapus gaji");
         }
     }
+
+    public function approve(string $id)
+    {
+        $gaji = Gaji::where('id_gaji', $id)->update([
+            'status' => 1
+        ]);
+
+        if ($gaji) {
+            return $this->setResponse(true, "Sukses approve gaji");
+        } else {
+            return $this->setResponse(true, "Gagal approve gaji");
+        }
+    }
 }
