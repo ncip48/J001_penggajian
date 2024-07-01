@@ -21,8 +21,14 @@ class LaporanSlipGaji extends Controller
     {
         $gajis = Gaji::with('karyawan')->with('karyawan.jabatan')->whereMonth('periode_gaji', $request->bulan)
             ->whereYear('periode_gaji', $request->tahun)
-            ->where('status', 1)
-            ->get();
+            ->where('status', 1);
+
+        if (auth()->user()->level == 2) {
+            $gajis = $gajis->where('id_karyawan', auth()->user()->karyawan->id_karyawan);
+        }
+
+        $gajis = $gajis->get();
+
 
         $gajis = $gajis->map(function ($item) use ($request) {
             $item->total_gaji = $item->gaji_pokok + $item->total_bonus - $item->potongan_gaji;
