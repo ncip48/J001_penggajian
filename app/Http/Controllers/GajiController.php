@@ -87,7 +87,12 @@ class GajiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $karyawans = Karyawan::all();
+        $data = Gaji::find($id);
+        $data->periode_gaji = Carbon::parse($data->periode_gaji)->format('Y-m');
+        return view('gaji.detail')
+            ->with('data', $data)
+            ->with('karyawans', $karyawans);
     }
 
     /**
