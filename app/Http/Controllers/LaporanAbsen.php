@@ -20,6 +20,10 @@ class LaporanAbsen extends Controller
             ->whereYear('bulan', $request->tahun)
             ->get();
 
+        if (count($absensis) == 0) {
+            return back()->with('warning', 'Data kosong');
+        }
+
         $data = [
             'absensis' => $absensis,
             'bulan' => Carbon::createFromFormat('m', $request->bulan)->locale('id')->isoFormat('MMMM'),

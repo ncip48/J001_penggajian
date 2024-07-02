@@ -29,6 +29,9 @@ class LaporanSlipGaji extends Controller
 
         $gajis = $gajis->get();
 
+        if (count($gajis) == 0) {
+            return back()->with('warning', 'Data kosong');
+        }
 
         $gajis = $gajis->map(function ($item) use ($request) {
             $item->total_gaji = $item->gaji_pokok + $item->total_bonus - $item->potongan_gaji;

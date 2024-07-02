@@ -26,6 +26,10 @@ class LaporanGaji extends Controller
             return $item;
         });
 
+        if (count($gajis) == 0) {
+            return back()->with('warning', 'Data kosong');
+        }
+
         $data = [
             'gajis' => $gajis,
             'bulan' => Carbon::createFromFormat('m', $request->bulan)->locale('id')->isoFormat('MMMM'),

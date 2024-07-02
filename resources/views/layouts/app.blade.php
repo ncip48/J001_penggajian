@@ -569,7 +569,43 @@
                 }
             });
         })
+
+        $(".tolak-text").on("click", function(e) {
+            e.preventDefault();
+            var accButton = $(this);
+            Swal.fire({
+                title: 'Konfirmasi Tolak',
+                text: 'Apakah yakin untuk menolak gaji ini?',
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+                confirmButtonClass: "btn btn-primary",
+                cancelButtonClass: "btn btn-danger ml-1",
+                buttonsStyling: !1,
+                allowOutsideClick: false,
+            }).then(function(t) {
+                if (t.value) {
+                    // If user confirms deletion, submit the associated form
+                    accButton.closest("form").submit();
+                }
+            });
+        })
     </script>
+
+    @if (Session::has('error'))
+        <script>
+            toastr.error('{!! Session::get('error') !!}');
+        </script>
+    @endif
+
+    @if (Session::has('warning'))
+        <script>
+            toastr.warning('{!! Session::get('warning') !!}');
+        </script>
+    @endif
 </body>
 
 </html>

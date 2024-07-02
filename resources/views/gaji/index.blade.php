@@ -163,6 +163,16 @@
                                                                                 <i class="fas fa-check"></i>
                                                                             </button>
                                                                         </form>
+                                                                        <form data-reload="true" id="main-form"
+                                                                            action="{{ route('gaji.decline', $gaji->id_gaji) }}"
+                                                                            method="POST" class="ml-1 acc-form">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <button
+                                                                                class="tolak-text btn btn-sm btn-danger">
+                                                                                <i class="fas fa-times-circle"></i>
+                                                                            </button>
+                                                                        </form>
                                                                     @endif
                                                                 </div>
                                                             @endif

@@ -53,6 +53,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     //gaji
     Route::resource('gaji', GajiController::class);
     Route::put('gaji/{gaji}/approve', [GajiController::class, 'approve'])->name('gaji.approve');
+    Route::put('gaji/{gaji}/decline', [GajiController::class, 'decline'])->name('gaji.decline');
 
     //laporan
     Route::get('laporan-gaji', [LaporanGaji::class, 'index'])->name('laporan.gaji');
