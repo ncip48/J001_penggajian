@@ -142,7 +142,7 @@ $is_edit = isset($data);
 @push('scripts')
     <script>
         const id_karyawan = "{{ $data->id_karyawan }}"
-        const periode = "{{ $data->tanggal }}"
+        const periode = "{{ $data->periode_gaji }}"
         if (id_karyawan && periode) {
             const bulan = periode.split('-')[1]
             const tahun = periode.split('-')[0]
